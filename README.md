@@ -4,12 +4,12 @@ This is a simple chess game written in Python using the pygame library. It allow
 # Requirements
 To run this game, you need to have Python 3 and pygame installed on your computer. You can install pygame using pip:
 
-''pip install pygame''
+'''pip install pygame'''
 
 # How to play
 To start the game, run the main.py file:
 
-''python main.p''
+'''python main.p'''
 
 You will see a chess board with pieces on it. The white pieces belong to player 1, and the black pieces belong to player 2 (or the AI). To move a piece, click on it and then click on the square where you want to move it. If the move is valid, the piece will move. If the move is invalid, you will hear a beep sound and the piece will stay in its original position.
 
