@@ -3,9 +3,7 @@ import pygame
 # Tile creator
 
 class Square:
-
     def __init__(self, x, y, width, height):
-        
         self.x = x
         self.y = y
         self.width = width
@@ -27,11 +25,10 @@ class Square:
             self.height
         )
 
-# get the formal notation of the tile
-
-def get_coord(self):
-    columns = 'abcdefgh'
-    return columns[self.x] + str(self.y + 1)
+    # get the formal notation of the tile
+    def get_coord(self):
+        columns = 'abcdefgh'
+        return columns[self.x] + str(self.y + 1)
 
 def draw(self, display):
 

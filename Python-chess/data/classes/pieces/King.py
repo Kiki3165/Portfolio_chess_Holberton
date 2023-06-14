@@ -1,6 +1,6 @@
 import pygame
 
-from data.classes.pieces.Piece import Piece
+from classes.pieces.Piece import Piece
 
 class King(Piece):
     def __init__(self, pos, color, board):

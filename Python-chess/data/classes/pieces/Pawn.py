@@ -1,6 +1,6 @@
 import pygame
 
-from data.classes.pieces.Piece import Piece
+from classes.pieces.Piece import Piece
 
 class Pawn(Piece):
 

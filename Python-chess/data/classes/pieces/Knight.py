@@ -1,6 +1,6 @@
 import pygame
 
-from data.classes.pieces import Piece
+from classes.pieces.Piece import Piece
 
 class Knight(Piece):
 
