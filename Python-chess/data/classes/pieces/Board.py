@@ -1,5 +1,6 @@
 import pygame
-from data.classes.Square import Square
+import random
+from data.classes.pieces.Square import Square
 from data.classes.pieces.Rook import Rook
 from data.classes.pieces.Bishop import Bishop
 from data.classes.pieces.Knight import Knight
@@ -155,3 +156,25 @@ def draw(self, display):
                 square.highlight = True
     for square in self.squares:
         square.draw(display)
+
+# implement simple AI
+
+def ai_move_generation(self):
+    legal_moves = []
+    for square in self.squares:
+        piece = square.occupying_piece
+        if piece is not None and piece.color == 'black':
+            for move in piece.get_valid_moves(self):
+                legal_moves.append((piece.pos, move.pos))
+    return legal_moves
+
+def ai_select_move(self, legal_moves):
+    return random.choice(legal_moves)
+
+def ai_turn(self):
+    legal_moves = self.ai_move_generation()
+    move = self.ai_select_move(legal_moves)
+    from_pos, to_pos = move
+    piece = self.get_piece_from_pos(from_pos)
+    to_square = self.get_square_from_pos(to_pos)
+    piece.move(self, to_square)

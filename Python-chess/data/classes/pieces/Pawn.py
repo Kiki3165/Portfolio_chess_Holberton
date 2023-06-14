@@ -1,10 +1,11 @@
 import pygame
 
-from data.classes.Piece import Piece
+from data.classes.pieces.Piece import Piece
 
 class Pawn(Piece):
 
     def __init__(self, pos, color, board):
+
         super().__init__(pos, color, board)
         img_path = 'data/img/' + color[0] + '_pawn.png'
         self.img = pygame.image.load(img_path)
@@ -12,6 +13,7 @@ class Pawn(Piece):
         self.notation = ' '
 
 def get_possible_moves(self, board):
+
     output = []
     moves = []
 
@@ -33,6 +35,7 @@ def get_possible_moves(self, board):
     return output
 
 def get_moves(self, board):
+
         output = []
         for square in self.get_possible_moves(board):
             if square.occupying_piece != None:
@@ -72,6 +75,8 @@ def get_moves(self, board):
         return output
 
 def attacking_squares(self, board):
+
     moves = self.get_moves(board)
+
     # return the diagonal moves 
     return [i for i in moves if i.x != self.x]
