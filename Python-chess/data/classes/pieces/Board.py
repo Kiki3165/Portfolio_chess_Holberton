@@ -1,5 +1,4 @@
 import pygame
-import random
 from classes.pieces.Square import Square
 from classes.pieces.Rook import Rook
 from classes.pieces.Bishop import Bishop
@@ -9,7 +8,6 @@ from classes.pieces.King import King
 from classes.pieces.Pawn import Pawn
 
 # Game state checker
-
 class Board:
     def __init__(self, width, height):
         self.width = width
@@ -36,54 +34,50 @@ class Board:
         for y in range(8):
             for x in range(8):
                 output.append(
-                    Square(x, y, self.tile_width, self.tile_height)
+                    Square(x,  y, self.tile_width, self.tile_height)
                 )
         return output
+
+    def get_square_from_pos(self, pos):
+        for square in self.squares:
+            if (square.x, square.y) == (pos[0], pos[1]):
+                return square
+
+    def get_piece_from_pos(self, pos):
+        return self.get_square_from_pos(pos).occupying_piece
 
     def setup_board(self):
         for y, row in enumerate(self.config):
             for x, piece in enumerate(row):
                 if piece != '':
                     square = self.get_square_from_pos((x, y))
-                # looking inside contents, what piece does it have
-                if piece[1] == 'R':
-                    square.occupying_piece = Rook(
-                        (x, y), 'white' if piece[0] == 'w' else 'black', self
-                    )
-                # as you notice above, we put `self` as argument, or means our class Board
-                elif piece[1] == 'N':
-                    square.occupying_piece = Knight(
-                        (x, y), 'white' if piece[0] == 'w' else 'black', self
-                    )
-                elif piece[1] == 'B':
-                    square.occupying_piece = Bishop(
-                        (x, y), 'white' if piece[0] == 'w' else 'black', self
-                    )
-                elif piece[1] == 'Q':
-                    square.occupying_piece = Queen(
-                        (x, y), 'white' if piece[0] == 'w' else 'black', self
-                    )
-                elif piece[1] == 'K':
-                    square.occupying_piece = King(
-                        (x, y), 'white' if piece[0] == 'w' else 'black', self
-                    )
-                elif piece[1] == 'P':
-                    square.occupying_piece = Pawn(
-                        (x, y), 'white' if piece[0] == 'w' else 'black', self
-                    )
-
-    def get_square_from_pos(self, pos):
-
-        for square in self.squares:
-            if (square.x, square.y) == (pos[0], pos[1]):
-                return square
-
-    def get_piece_from_pos(self, pos):
-
-        return self.get_square_from_pos(pos).occupying_piece
-
-
-
+                    # looking inside contents, what piece does it have
+                    if piece[1] == 'R':
+                        square.occupying_piece = Rook(
+                            (x, y), 'white' if piece[0] == 'w' else 'black', self
+                        )
+                    # as you notice above, we put `self` as argument, or means our class Board
+                    elif piece[1] == 'N':
+                        square.occupying_piece = Knight(
+                            (x, y), 'white' if piece[0] == 'w' else 'black', self
+                        )
+                    elif piece[1] == 'B':
+                        square.occupying_piece = Bishop(
+                            (x, y), 'white' if piece[0] == 'w' else 'black', self
+                        )
+                    elif piece[1] == 'Q':
+                        square.occupying_piece = Queen(
+                            (x, y), 'white' if piece[0] == 'w' else 'black', self
+                        )
+                    elif piece[1] == 'K':
+                        square.occupying_piece = King(
+                            (x, y), 'white' if piece[0] == 'w' else 'black', self
+                        )
+                    elif piece[1] == 'P':
+                        square.occupying_piece = Pawn(
+                            (x, y), 'white' if piece[0] == 'w' else 'black', self
+                        )
+    
     def handle_click(self, mx, my):
         x = mx // self.tile_width
         y = my // self.tile_height
@@ -100,6 +94,7 @@ class Board:
 
     # check state checker
     def is_in_check(self, color, board_change=None): # board_change = [(x1, y1), (x2, y2)]
+
         output = False
         king_pos = None
         changing_piece = None
@@ -136,7 +131,7 @@ class Board:
             old_square.occupying_piece = changing_piece
             new_square.occupying_piece = new_square_old_piece
         return output
-
+    
     # checkmate state checker
     def is_in_checkmate(self, color):
         output = False
@@ -156,25 +151,3 @@ class Board:
                 square.highlight = True
         for square in self.squares:
             square.draw(display)
-
-# implement simple AI
-
-def ai_move_generation(self):
-    legal_moves = []
-    for square in self.squares:
-        piece = square.occupying_piece
-        if piece is not None and piece.color == 'black':
-            for move in piece.get_valid_moves(self):
-                legal_moves.append((piece.pos, move.pos))
-    return legal_moves
-
-def ai_select_move(self, legal_moves):
-    return random.choice(legal_moves)
-
-def ai_turn(self):
-    legal_moves = self.ai_move_generation()
-    move = self.ai_select_move(legal_moves)
-    from_pos, to_pos = move
-    piece = self.get_piece_from_pos(from_pos)
-    to_square = self.get_square_from_pos(to_pos)
-    piece.move(self, to_square)
